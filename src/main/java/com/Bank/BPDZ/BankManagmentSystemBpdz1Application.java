@@ -117,7 +117,36 @@ public class BankManagmentSystemBpdz1Application implements CommandLineRunner{
 		 //compte.setRole("User");
 		 //System.out.println("this :"+compte.getRole());
 		//takecompt.save(compte);
-		 
-		     
-			}
+
+		BPDZDir bank = new BPDZDir();
+		bank.setNomBanque("Banque Nationale");
+		bank.setCodeBanque("BNAT001");
+		bank.setBic("BNATFRPPXXX");
+		bank.setAdresse("123 Rue de la République, 75001 Paris, France");
+		bank.setParticipante(true);
+		bank.setIso20022Integration("O"); // Must be "O" or "N"
+		bank.setAbonnement("P2");         // Must be P1–P4
+		bank.setPret(true);
+		bank.setNomCorrespondant("Jean Dupont");
+		bank.setMail("contact@banquenationale.fr");
+		bank.setTel("+33123456789");
+		savecompte.save(bank);
+		// Assuming you already have a BPDZDir object named `bank`
+		BPDZHabi habi = new BPDZHabi();
+		habi.setBanque(bank); // bank is a BPDZDir instance
+
+		habi.setLogin("omar");
+		habi.setMotDePasse(passwordEncoder.encode("12345678")); // Ideally this would be hashed
+		habi.setAdresseIP("192.168.1.10");
+		habi.setPortReception(8080);
+		habi.setAdresseipsecours("192.168.1.11");
+		habi.setPortReceptionSecours(8081);
+		habi.setRole("Admin"); // Example: ADMIN, USER, MANAGER etc.
+		habi.setPermissions("READ,WRITE,DELETE"); // Or a JSON string depending on how you store it
+		habi.setNom("Dupont");
+		habi.setPrenom("Jean");
+        takecompt.save(habi);
+
+
+	}
 }
