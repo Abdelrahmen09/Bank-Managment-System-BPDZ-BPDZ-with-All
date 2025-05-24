@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Table(name = "bpdzmandat",
        indexes = {
            @Index(name = "idx_bpdzmandat_id_banque", columnList = "id_banque"),
-           @Index(name = "idx_bpdzmandat_id_compte", columnList = "id_compte"),
+           @Index(name = "idx_bpdzmandat_id_compte", columnList = "idcompte"),
            @Index(name = "idx_bpdzmandat_id_mouvement", columnList = "id_mouvement")
        })
 
