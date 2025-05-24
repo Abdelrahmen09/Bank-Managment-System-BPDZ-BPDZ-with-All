@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/form.css" />
+    <title>BPDZ</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav__header">
+        <div class="nav__logo">
+          <a href="#" class="logo">BPDZ</a>
+        </div>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+      </div>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="/login">HOME</a></li>
+        <li class="dropdown">
+          <a href="#">SERVICES <i class="ri-arrow-down-s-line"></i></a>
+          <ul class="dropdown-content">
+            <li class="dropdown-item">
+              <a href="#">View Tables<i class="ri-arrow-right-s-line"></i></a>
+              <ul class="dropdown-submenu">
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/movment">Mouvment</a></li>
+                <li><a href="/compte">compte</a></li>
+                <li><a href="/dir">dir</a></li>
+                <li><a href="/fraud">fraud</a></li>
+                <li><a href="/mondat">mondat</a></li>
+                <li><a href="/pret">pret</a></li>
+                <li><a href="/habi">habilitation</a></li>
+              </ul>
+            </li>
+            <li><a href="/form">Fill Pacs</a></li>
+            <li><a href="/admin/add/add_auditor/add_audi">Add</a></li>
+            <li><a href="/admin/add/add_compte/add_prof">Add compte</a></li>
+          </ul>
+        </li>
+        <li id="last_child"><a href="/profile">PROFILE</a></li>
+      </ul>
+      <div class="nav__btns">
+        <li><a href="/profile">PROFILE</a></li>
+      </div>
+    </nav>
+
+	    <div class="section__container">
+	    <h1>Add Compte</h1>
+
+	    <div id="formSection" class="form-group">
+	        <label for="pacsType">Sélectionner le type de compte :</label>
+	        <select id="pacsType" onchange="showSelectedForm()">
+	            <option value="bank">bank</option>
+	            <option value="user">user</option>
+	             <option value="reserv">compte (reserve/courant)</option>
+	            
+	        </select>
+
+	        <!-- Bank -->
+	        <form id="bank" th:action="@{/operation/dir/add}" th:object="${dir}" method="post" class="pacs-form">
+
+                          <label for="nomBanque">Nom Banque:</label>
+                          <input type="text" id="nomBanque" th:field="*{nomBanque}" maxlength="50" required />
+                         
+                          <label for="codeBanque">Code Banque:</label>
+                          <input type="text" id="codeBanque" th:field="*{codeBanque}" maxlength="50" required />
+                         
+                          <label for="bic">BIC:</label>
+                          <input type="text" id="bic" th:field="*{bic}" maxlength="11"
+                                 pattern="[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?" title="BIC must be 8 numeric characters" required />
+                         
+                          <label for="iso20022Integration">Intégration ISO20022:</label>
+                          <select id="iso20022Integration" th:field="*{iso20022Integration}">
+                              <option value="O">Oui</option>
+                              <option value="N">Non</option>
+                          </select>
+                         
+                          <label for="nomCorrespondant">Nom Correspondant:</label>
+                          <input type="text" id="nomCorrespondant" th:field="*{nomCorrespondant}" maxlength="50" required />
+                         
+                          <label for="mail">Email:</label>
+                          <input type="email" id="mail" th:field="*{mail}" maxlength="100" required />
+                         
+                          <label for="tel">Téléphone:</label>
+                          <input type="tel" id="tel" th:field="*{tel}" maxlength="15" required />
+                         
+                          <label for="abonnement">Abonnement:</label>
+                          <select id="abonnement" th:field="*{abonnement}" required>
+                              <option value="P1">P1</option>
+                              <option value="P2">P2</option>
+                              <option value="P3">P3</option>
+                              <option value="P4">P4</option>
+                          </select>
+                         
+                          <label for="pret">Accepte les prêts:</label>
+                          <input type="checkbox" id="pret" th:field="*{pret}" />
+                         
+                          <label for="adresse">Adresse:</label>
+                          <textarea id="adresse" th:field="*{adresse}" rows="3"></textarea>
+                         
+                          <button type="submit">Ajouter</button>
+                </form>
+
+	        
+	        
+
+	            <!-- Admin of the -->
+	                       <form id = "user" th:action="@{/operation/addhabi}" th:object="${habi}" method="post" class="pacs-form">
+                                
+                                <!-- BIC is passed separately -->
+                                <label for="bic">BIC:</label>
+                                <input type="text" id="bic" name="bic"
+                                       maxlength="11"
+                                       pattern="[A-Za-z]{4}[A-Za-z]{2}[A-Za-z0-9]{2}([A-Za-z0-9]{3})?"
+                                       title="BIC doit comporter entre 8 et 11 caractères"
+                                       required>
+                                
+                                <label for="nom">Nom:</label>
+                                <input type="text" id="nom" th:field="*{nom}" maxlength="15" required>
+                                
+                                <label for="prenom">Prénom:</label>
+                                <input type="text" id="prenom" th:field="*{prenom}" maxlength="15" required>
+                                
+                                <label for="login">Login (email ou identifiant):</label>
+                                <input type="text" id="login" th:field="*{login}" maxlength="80" required>
+                                
+                                <label for="motDePasse">Mot de passe:</label>
+                                <input type="password" id="motDePasse" th:field="*{motDePasse}" maxlength="80" required>
+                                
+                                <label for="adresseIP">Adresse IP:</label>
+                                <input type="text" id="adresseIP" th:field="*{adresseIP}" maxlength="50" required>
+                                
+                                <label for="portReception">Port de Réception:</label>
+                                <input type="number" id="portReception" th:field="*{portReception}" min="1" max="65535" required>
+                                
+                                <label for="adresseIPSecours">Adresse IP Secours:</label>
+                                <input type="text" id="adresseipsecours" th:field="*{adresseipsecours}" maxlength="50">
+                                
+                                <label for="portReceptionSecours">Port Réception Secours:</label>
+                                <input type="number" id="portReceptionSecours" th:field="*{portReceptionSecours}" min="1" max="65535">
+                                
+                                <label for="role">Rôle:</label>
+                                <select id="role" th:field="*{role}">
+                                    <option value="User">User</option>
+                                    <option value="Viewer">Viewer</option>
+                                    <option value="Modifier">Modifier</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                                
+                                <label for="permissions">Permissions:</label>
+                                <textarea id="permissions" th:field="*{permissions}" rows="3" cols="40"></textarea>
+                                
+                                <button type="submit">Ajouter</button>
+                          </form>
+                          
+                          <form id ="reserv" th:action="@{/operation/comptes/add}" method="post" th:object="${compte}" class="pacs-form">
+
+                                <label for="numeroCompte">Numéro de Compte:</label>
+                                <input type="text" id="numeroCompte" th:field="*{numeroCompte}" required />
+                                <br/><br/>
+                                
+                                <label for="natureCompte">Nature du Compte:</label>
+                                <select id="natureCompte" th:field="*{natureCompte}" required>
+                                    <option value="Courant">Courant</option>
+                                    <option value="Reserve">Réserve</option>
+                                </select>
+                                <br/><br/>
+                                
+                                <label for="solde">Solde:</label>
+                                <input type="number" step="0.01" th:field="*{solde}" id="solde" required />
+                                <br/><br/>
+                                
+                                <label for="dateSolde">Date Solde:</label>
+                                <input type="date" th:field="*{dateSolde}" id="dateSolde" />
+                                <br/><br/>
+                                
+                                <label for="devise">Devise:</label>
+                                <input type="text" id="devise" th:field="*{devise}" placeholder="DA" />
+                                <br/><br/>
+                                
+                                <label for="bic">BIC de la Banque:</label>
+                                <input type="text" id="bic" name="bic" required />
+                                <br/><br/>
+                                
+                                <button type="submit">Ajouter</button>
+
+                            </form>
+
+	            
+	        
+	</div>
+</div>
+    <script src="/js/main.js"></script>
+    <script src="/js/form.js"></script>
+</body>
+</html>

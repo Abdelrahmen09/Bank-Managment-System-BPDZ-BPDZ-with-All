@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html  lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="/css/table_css.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+	<link rel="stylesheet" href="/css/modify.css" />
+    <title>bpdz</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav__header">
+        <div class="nav__logo">
+          <a href="#" class="logo">BPDZ</a>
+        </div>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+      </div>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="/login">HOME</a></li>
+        <li class="dropdown">
+          <a href="#">SERVICES <i class="ri-arrow-down-s-line"></i></a>
+          <ul class="dropdown-content">
+            <li class="dropdown-item">
+              <a href="#">View Tables<i class="ri-arrow-right-s-line"></i></a>
+              <ul class="dropdown-submenu">
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/movment">Mouvment</a></li>
+                <li><a href="/compte">compte</a></li>
+                <li><a href="/dir">dir</a></li>
+                <li><a href="/fraud">fraud</a></li>
+                <li><a href="/mondat">mondat</a></li>
+                <li><a href="/pret">pret</a></li>
+                <li><a href="/habi">habilitation</a></li>
+              </ul>
+            </li>
+            <li><a href="/form">Fill Pacs</a></li>
+            <li><a href="/admin/add/add_auditor/add_audi">Add</a></li>
+            <li><a href="/admin/add/add_compte/add_prof">Add compte</a></li>
+          </ul>
+        </li>
+        <li id="last_child"><a href="/profile">PROFILE</a></li>
+      </ul>
+      <div class="nav__btns">
+        <li><a href="/profile">PROFILE</a></li>
+      </div>
+    </nav>
+
+
+
+<h2>table BPDZCptBcDCA</h2>
+<div class="section__container">
+    <form th:action="@{/searchcompte}" th:object="${search}" method="POST">
+        <input type="text" name="search" placeholder="Rechercher par nom de banque..." th:value="${search}">
+        <button type="submit">Rechercher</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID Banque</th>
+            <th>Nature</th>
+            <th>Numéro Compte</th>
+            <th>Solde</th>
+            <th>Date Solde</th>
+			<th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each ="compte:${compte}">
+            <td th:text="${compte.id}"></td>
+            <td th:text="${compte.getId_banque().getBic()}"></td>
+            <td th:text="${compte.natureCompte}"></td>
+            <td th:text="${compte.numeroCompte}"></td>
+            <td th:text="${compte.solde}"></td>
+            <td th:text="${compte.dateSolde}"></td>
+			<td>
+			  <form th:action="@{/operation/confirmdelete(id=${compte.id}, type='compte')}" method="get">
+                      <input type="hidden" name="id" th:value="${compte.id}" />
+                      <input type="hidden" name="type" value="compte" />
+                      <button type="submit">Delete</button>
+                  </form>
+			
+	             <form th:action="@{/operation/editcompte}" method="get">
+                   <input type="hidden" name="id" th:value="${compte.id}" />
+                   <button type="submit">Change</button>
+                 </form>
+			</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- i will modify in input type i add this only to see it i will send code and only copy coller don't worry ok!-->
+<div class="section__container modify-form-container">
+    <h2>Modify Data</h2>
+    <form class="form-griddd" th:action="@{/operation/updatecompte}" method="post" 
+          th:object="${compteToEdit}">
+        
+        <div class="form-grouppp">
+            <label>ID</label>
+            <input type="number" th:field="*{id}"/>
+        </div>
+        
+        <div class="form-grouppp">
+            <label>ID Banque</label>
+           <input type="text" th:value="${compteToEdit.getId_banque()?.getBic()}"  name="banqueBic"  />
+        </div>
+        
+        <div class="form-grouppp">
+            <label>Nature</label>
+            <input type="text" th:field="*{natureCompte}" />
+        </div>
+        
+        <div class="form-grouppp">
+            <label>Numéro Compte</label>
+            <input type="text" th:field="*{numeroCompte}" />
+        </div>
+        
+        <div class="form-grouppp">
+            <label>Solde</label>
+            <input type="text" th:field="*{solde}" />
+        </div>
+        
+        <div class="form-grouppp">
+            <label>Date Solde</label>
+            <input type="date" th:field="*{dateSolde}" />
+        </div>
+        
+        <div class="form-actionsss">
+            <button type="submit">Save Changes</button>
+        </div>
+    </form>
+</div>
+<script src="/js/main.js"></script>
+</body>
+</html>

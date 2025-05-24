@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html  lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="/css/table_css.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+	<link rel="stylesheet" href="/css/modify.css" />
+    <title>bpdz</title>
+  </head>
+  <body>
+     <nav>
+      <div class="nav__header">
+        <div class="nav__logo">
+          <a href="#" class="logo">BPDZ</a>
+        </div>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+      </div>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="/login">HOME</a></li>
+        <li class="dropdown">
+          <a href="#">SERVICES <i class="ri-arrow-down-s-line"></i></a>
+          <ul class="dropdown-content">
+            <li class="dropdown-item">
+              <a href="#">View Tables<i class="ri-arrow-right-s-line"></i></a>
+              <ul class="dropdown-submenu">
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/movment">Mouvment</a></li>
+                <li><a href="/compte">compte</a></li>
+                <li><a href="/dir">dir</a></li>
+                <li><a href="/fraud">fraud</a></li>
+                <li><a href="/mondat">mondat</a></li>
+                <li><a href="/pret">pret</a></li>
+                <li><a href="/habi">habilitation</a></li>
+              </ul>
+            </li>
+            <li><a href="/form">Fill Pacs</a></li>
+            <li><a href="/admin/add/add_auditor/add_audi">Add</a></li>
+            <li><a href="/admin/add/add_compte/add_prof">Add compte</a></li>
+          </ul>
+        </li>
+        <li id="last_child"><a href="/profile">PROFILE</a></li>
+      </ul>
+      <div class="nav__btns">
+        <li><a href="/profile">PROFILE</a></li>
+      </div>
+    </nav>
+
+   <div class="section__container">
+    <form th:action="@{/searcharchive}" th:object="${search}" method="POST">
+        <input type="text" name="search" placeholder="Rechercher par nom de banque..." th:value="${search}">
+        <button type="submit">Rechercher</button>
+    </form>
+   </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Bic</th>
+                <th>Nature</th>
+                <th>statutMouvement</th>
+                <th>Type Message</th>
+                <th>Transmission</th>
+                <th>Infos</th>
+                <th>Date Send</th>
+                <th>Date Received</th>
+                <th>Date Archived</th>
+                <th>XML</th>
+				<th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each ="archive:${archive}">
+            <td th:text="${archive.id}"></td>
+            <td th:text="${archive.getBanque().getBic()}"></td>
+            <td th:text="${archive.natureMouvement}"></td>
+            <td th:text="${archive.statutMouvement}"></td>
+            <td th:text="${archive.typeMessage}"></td>
+            <td th:text="${archive.modeTransmission}"></td>
+             <td th:text="${archive.informationsMessage}"></td>
+              <td th:text="${archive.dateSend}"></td>
+               <td th:text="${archive.dateReceived}"></td>
+               <td th:text="${archive.xmlFile}"></td>
+			   <td>
+			           <button>Delete</button>
+			   </td>
+            </tr>
+        </tbody>
+    </table>
+	
+	<!-- i will modify in input type i add this only to see it i will send code and only copy coller don't worry ok!-->
+	<div class="section__container modify-form-container">
+	  <h2>Modify Data</h2>
+	  <form class="form-griddd">
+	      <div class="form-grouppp">
+	          <label>ID</label>
+	          <input type="number">
+	      </div>
+	      
+	      <div class="form-grouppp">
+	          <label for="statut">Statut</label>
+	          <input type="text" id="statut" name="statut">
+	      </div>
+	      
+	      <div class="form-grouppp">
+	          <label for="nature">Nature</label>
+	          <input type="text" id="nature" name="nature">
+	      </div>
+	      
+	      <div class="form-grouppp">
+	          <label for="idBanque">ID Banque</label>
+	          <input type="number" id="idBanque" name="idBanque">
+	      </div>
+	      
+	      <div class="form-grouppp">
+	          <label for="typeMessage">Type Message</label>
+	          <input type="text" id="typeMessage" name="typeMessage">
+	      </div>
+	      
+	      <div class="form-grouppp">
+	          <label for="transmission">Transmission</label>
+	          <input type="text" id="transmission" name="transmission">
+	      </div>
+	      
+	      <div class="form-grouppp">
+	          <label for="infos">Infos</label>
+	          <input type="text" id="infos" name="infos">
+	      </div>
+	      
+	      <div class="form-grouppp">
+	          <label for="dateSend">Date Send</label>
+	          <input type="date" id="dateSend" name="dateSend">
+	      </div>
+	      
+	      <div class="form-grouppp">
+	          <label for="dateReceived">Date Received</label>
+	          <input type="date" id="dateReceived" name="dateReceived">
+	      </div>
+	      
+	      <div class="form-grouppp">
+	          <label for="dateArchived">Date Archived</label>
+	          <input type="date" id="dateArchived" name="dateArchived">
+	      </div>
+	      
+	      <div class="form-actionsss">
+	          <button type="button">Cancel</button>
+	          <button type="submit">Save Changes</button>
+	      </div>
+	  </form>
+	</div>
+
+   <script src="/js/main.js"></script>
+</body>
+</html>

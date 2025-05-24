@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html  lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="/css/prf_bnk.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>AUDITOR</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav__header">
+        <div class="nav__logo">
+          <a href="#" class="logo">BPDZ</a>
+        </div>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+      </div>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="/login">HOME</a></li>
+        <li class="dropdown">
+          <a href="#">SERVICES <i class="ri-arrow-down-s-line"></i></a>
+          <ul class="dropdown-content">
+            <li class="dropdown-item">
+              <a href="#">View Tables<i class="ri-arrow-right-s-line"></i></a>
+              <ul class="dropdown-submenu">
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/movment">Mouvment</a></li>
+                <li><a href="/compte">compte</a></li>
+                <li><a href="/dir">dir</a></li>
+                <li><a href="/fraud">fraud</a></li>
+                <li><a href="/mondat">mondat</a></li>
+                <li><a href="/pret">pret</a></li>
+                <li><a href="/habi">habilitation</a></li>
+              </ul>
+            </li>
+            <li><a href="/form">Fill Pacs</a></li>
+            <li><a href="/auditor/add_auditor/add_audi">Add</a></li>
+          </ul>
+        </li>
+        <li id="last_child"><a href="/profile">PROFILE</a></li>
+      </ul>
+      <div class="nav__btns">
+        <li><a href="/profile">PROFILE</a></li>
+      </div>
+    </nav>
+
+    
+    <div th:each="banks:${banks}">
+        <section class="section__container bank-info">
+            <h1> Your Information </h1>
+            <h2>BNA</h2>
+
+            <p><strong>BIC:</strong> <span th:text ="${banks.bic}"></span></p>
+        <p><strong>Adresse:</strong> <span th:text ="${banks.adresse}"></span></p>
+        <p><strong>ISO20022:</strong> <span th:text ="${banks.iso20022Integration}"></span></p>
+        </section>
+
+        <!-- Table of Accounts  -->
+        <section class="section__container account-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nature Compte</th>
+                        <th>Numéro Compte</th>
+                        <th>Solde</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each ="compte: ${compte}">
+            <td th:text ="${compte.natureCompte}"></td>
+            <td th:text ="${compte.numeroCompte}"></td>
+            <td th:text ="${compte.solde}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+        <div class="logout__container">
+          <div class="bnt_logout">
+			<i class="ri-login-box-line"></i>
+			Log Out
+		</div>
+      </div>
+
+        <script src="/js/main.js"></script>
+</body>
+</html>s

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+     <link rel="stylesheet" href="/css/table_css.css" />
+    
+	<link rel="stylesheet" href="/css/modify.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/form.css" />
+    <title>bpdz</title>
+  </head>
+  <body>
+      <nav>
+      <div class="nav__header">
+        <div class="nav__logo">
+          <a href="#" class="logo">BPDZ</a>
+        </div>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+      </div>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="/login">HOME</a></li>
+        <li class="dropdown">
+          <a href="#">SERVICES <i class="ri-arrow-down-s-line"></i></a>
+          <ul class="dropdown-content">
+            <li><a href="/form">Fill Pacs</a></li>
+             <li><a href="/movment">Transfer</a></li>
+          </ul>
+        </li>
+        <li id="last_child"><a href="/profile">PROFILE</a></li>
+      </ul>
+      <div class="nav__btns">
+        <li><a href="/profile">PROFILE</a></li>
+      </div>
+    </nav>
+	
+<h2>Liste des transactions</h2>
+
+<div class="search-box">
+    <form th:action="@{/searchmovment}" th:object="${search}" method="POST">
+        <input type="text" name="search" placeholder="Rechercher par nom de banque..." th:value="${search}">
+        <button type="submit">Rechercher</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+         <tr>
+                <th> id</th>
+                <th> banque Recepteur (bic)</th>
+                <th>banque Emetteur (bic)</th>
+                <th>statut Mouvement</th>
+                <th>Type Message</th>
+                <th>IBan dateCreation</th>
+                <th>IBan dateTraitement</th> 
+                <th>IBan Emetteur </th>
+                <th>IBan Recepteur</th>
+                 
+                <th>Amount</th>
+                   
+         </tr>
+    </thead>
+    <tbody>
+         <tr th:each ="trans:${trans}">
+            <td th:text="${trans.id}"></td>
+            <td th:text="${trans.banqueRecepteur?.getBic()}"></td>
+            <td th:text="${trans.banqueEmetteur?.getBic()}"></td>
+            <td th:text="${trans.statutMouvement}"></td>
+            <td th:text="${trans.typeMessage}"></td>
+            <td th:text="${trans.dateTraitement}"></td>             
+            <td th:text="${trans.dateCreation}"></td>
+            <td th:text="${trans.ibanSender}"></td>
+            <td th:text="${trans.ibanReciver}"></td>
+            <td th:text="${trans.amount}"></td>
+			   
+        </tr>
+    </tbody>
+</table>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

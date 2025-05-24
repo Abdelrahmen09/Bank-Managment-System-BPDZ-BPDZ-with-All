@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Confirm Deletion</title>
+</head>
+<body>
+
+<div th:if="${object != null}">
+    <p>Confirmez la suppression de l'objet avec ID <span th:text="${object.id}"></span> ?</p>
+
+    <form th:action="@{/operation/delete}" method="post">
+        <input type="hidden" name="id" th:value="${object.id}" />
+        <input type="hidden" name="type" th:value="${type}" />
+        <button type="submit">Oui</button>
+    </form>
+</div>
+
+<div th:if="${object == null}">
+    <p>Erreur : Objet introuvable ou type invalide.</p>
+</div>
+
+<form th:if="${type == 'compte'}" th:action="@{/compte}" method="get">
+    <button type="submit">Non</button>
+</form>
+<form th:if="${type == 'pret'}" th:action="@{/pret}" method="get">
+    <button type="submit">Non</button>
+</form>
+<form th:if="${type == 'mondat'}" th:action="@{/mondat}" method="get">
+    <button type="submit">Non</button>
+</form>
+<form th:if="${type == 'fraud'}" th:action="@{/fraud}" method="get">
+    <button type="submit">Non</button>
+</form>
+<form th:if="${type == 'dir'}" th:action="@{/dir}" method="get">
+    <button type="submit">Non</button>
+</form>
+<form th:if="${type == 'mouvment'}" th:action="@{/movment}" method="get">
+    <button type="submit">Non</button>
+   </form> 
+ <form th:if="${type == 'habi'}" th:action="@{/habi}" method="get">
+    <button type="submit">Non</button>
+</form>
+</body>
+</html>
+

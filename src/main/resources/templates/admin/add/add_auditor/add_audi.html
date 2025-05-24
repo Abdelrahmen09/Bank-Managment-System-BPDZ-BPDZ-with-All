@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="/css/form.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>BPDZ</title>
+  </head>
+  <body>
+     <nav>
+      <div class="nav__header">
+        <div class="nav__logo">
+          <a href="#" class="logo">BPDZ</a>
+        </div>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+      </div>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="/login">HOME</a></li>
+        <li class="dropdown">
+          <a href="#">SERVICES <i class="ri-arrow-down-s-line"></i></a>
+          <ul class="dropdown-content">
+            <li class="dropdown-item">
+              <a href="#">View Tables<i class="ri-arrow-right-s-line"></i></a>
+              <ul class="dropdown-submenu">
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/movment">Mouvment</a></li>
+                <li><a href="/compte">compte</a></li>
+                <li><a href="/dir">dir</a></li>
+                <li><a href="/fraud">fraud</a></li>
+                <li><a href="/mondat">mondat</a></li>
+                <li><a href="/pret">pret</a></li>
+                <li><a href="/habi">habilitation</a></li>
+              </ul>
+            </li>
+            <li><a href="/form">Fill Pacs</a></li>
+            <li><a href="/admin/add/add_auditor/add_audi">Add</a></li>
+            <li><a href="/admin/add/add_compte/add_prof">Add compte</a></li>
+          </ul>
+        </li>
+        <li id="last_child"><a href="/profile">PROFILE</a></li>
+      </ul>
+      <div class="nav__btns">
+        <li><a href="/profile">PROFILE</a></li>
+      </div>
+    </nav>
+
+	    <div class="section__container">
+
+	    <div id="formSection" class="form-group">
+	        <label for="pacsType">SELECT :</label>
+	        <select id="pacsType" onchange="showSelectedForm()">
+	            <option value="add_fraud">Add Fraud</option>
+	            <option value="add_pret">Add Pret</option>
+	            <option value="add_mandat">Add Mondat</option>
+	          
+	        </select>
+	       
+
+	        
+
+	          <form id="add_fraud" class="pacs-form" th:action="@{/operation/fraud/add}" method="post" th:object="${fraud}">
+                <label>Type d'information :</label>
+                <select name="typeInformation" th:field="*{typeInformation}" required>
+                    <option value="">Select Type</option>
+                    <option value="BIC">BIC Code</option>
+                    <option value="BANK_NAME">Bank Name</option>
+                    <option value="COUNTRY">Country Code</option>
+                    <option value="ACCOUNT">Account Number</option>
+                </select>
+                
+                <label>Information Interdite :</label>
+                <input type="text" name="informationInterdite" th:field="*{informationInterdite}" placeholder="e.g., FR123456789" required>
+                
+                <label>Raison :</label>
+                <input type="text" name="raison" th:field="*{raison}" placeholder="Motif de l'interdiction" required>
+
+                <button type="submit">Add</button>
+              </form>
+
+
+
+	            <form id="add_pret"th:action="@{/operation/add}" th:object="${pret}" method="post" class="pacs-form">
+
+                    <!-- Agent ID -->
+                    <label>Agent ID:</label>
+                    <input type="number" name="agentId" required />
+                    
+                    <!-- Banque BIC -->
+                    <label>BIC Banque:</label>
+                    <input type="text" name="bic" required />
+                    
+                    <!-- Montant du prêt -->
+                    <label>Montant Prêt:</label>
+                    <input type="number" step="0.01" th:field="*{montantPret}" required />
+                    
+                    <!-- Date du prêt -->
+                    <label>Date Prêt:</label>
+                    <input type="date" th:field="*{datePret}" required />
+                    
+                    <!-- Date prise en charge -->
+                    <label>Date Prise en Charge:</label>
+                    <input type="date" th:field="*{datePriseEnCharge}" required />
+
+                    <button type="submit">Ajouter Prêt</button>
+                    
+                    
+                 </form>
+                 <form id="add_mandat" th:action="@{/operation/mandat/add}" th:object="${mandat}" method="post" class="pacs-form">
+
+                    <!-- Banque -->
+                     <label>BIC Banque:</label>
+                    <input  name="bic" required />
+                
+                    <!-- Compte -->
+                     <label>id Compte:</label>
+                    <input  name="idCompte" required />
+                    <!-- Mouvement -->
+                     <label>ID Mouvment :</label>
+                    <input  name="idMouv" required />
+                
+                    <!-- Date du Mandat -->
+                    <label>Date du Mandat:</label>
+                    <input type="date" th:field="*{dateMandat}" required />
+                
+                    <button type="submit">Ajouter Mandat</button>
+                </form>
+                                  
+                	            
+	            
+	</div>
+	</div>
+
+	
+    <script src="/js/main.js"></script> 
+    <script src="/js/form.js"></script> 
+</body>
+</html>

@@ -1,0 +1,46 @@
+
+h1 { 
+  color: #007bff; 
+  font-size: 24px; 
+  margin-bottom: 20px; 
+  text-align: center; 
+}
+
+.form-group { margin-bottom: 15px; }
+
+label { 
+  font-weight: bold; 
+  display: block; 
+  margin-bottom: 5px; 
+}
+
+select, input[type="file"], input[type="text"], input[type="number"] { 
+  width: 100%; 
+  padding: 10px; 
+  border-radius: 6px; 
+  border: 1px solid #ccc; 
+  background: #ffffff; 
+  color: #333; 
+}
+
+.form-group select, .form-group input { margin-bottom: 20px; }
+
+button { 
+  background: #007bff; 
+  color: white; 
+  border: none; 
+  padding: 10px 16px; 
+  cursor: pointer; 
+  border-radius: 6px; 
+  font-weight: bold; 
+  transition: 0.3s; 
+  width: 100%; 
+}
+
+button:hover { 
+  background: #0056b3; 
+  transform: scale(1.05); }
+
+button { transition: transform 0.2s ease-in-out; }
+
+.hidden { display: none; }

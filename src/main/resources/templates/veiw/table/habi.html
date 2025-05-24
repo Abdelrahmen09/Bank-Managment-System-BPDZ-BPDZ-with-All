@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="/css/table_css.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>BPDZ</title>
+  </head>
+  <body>
+     <nav>
+      <div class="nav__header">
+        <div class="nav__logo">
+          <a href="#" class="logo">BPDZ</a>
+        </div>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+      </div>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="/login">HOME</a></li>
+        <li class="dropdown">
+          <a href="#">SERVICES <i class="ri-arrow-down-s-line"></i></a>
+          <ul class="dropdown-content">
+            <li class="dropdown-item">
+              <a href="#">View Tables<i class="ri-arrow-right-s-line"></i></a>
+              <ul class="dropdown-submenu">
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/movment">Mouvment</a></li>
+                <li><a href="/compte">compte</a></li>
+                <li><a href="/dir">dir</a></li>
+                <li><a href="/fraud">fraud</a></li>
+                <li><a href="/mondat">mondat</a></li>
+                <li><a href="/pret">pret</a></li>
+                <li><a href="/habi">habilitation</a></li>
+              </ul>
+            </li>
+            <li><a href="/form">Fill Pacs</a></li>
+          </ul>
+        </li>
+        <li id="last_child"><a href="/profile">PROFILE</a></li>
+      </ul>
+      <div class="nav__btns">
+        <li><a href="/profile">PROFILE</a></li>
+      </div>
+    </nav>
+
+<h2>table BPDZCptBcDCA</h2>
+<div class="search-box">
+    <form th:action="@{/searchhabi}" th:object="${search}" method="POST">
+        <input type="text" name="search" placeholder="Rechercher par nom de banque..." th:value="${search}">
+        <button type="submit">Rechercher</button>
+    </form>
+</div>
+
+<table>
+	    <thead>
+	        <tr>
+	            <th>ID</th>
+                <th>bic</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Adresse IP</th>
+                <th>Port Réception</th>
+                <th>Adresse IP Secours</th>
+                <th>Port Réception Secours</th>
+                <th>Rôle</th>
+                <th>Permissions</th>
+                <th>Login</th>
+                 <th>Mode de pass</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr th:each ="habi:${habi}">
+	        <td th:text="${habi.id}"></td>
+	            <td th:text="${habi.banque.getBic()}"></td>
+	            <td th:text="${habi.nom}"></td>
+	            <td th:text="${habi.prenom}"></td>
+	            <td th:text="${habi.adresseIP}"></td>
+	            <td th:text="${habi.portReception}"></td>
+	            <td th:text="${habi.adresseipsecours}"></td>
+	            <td th:text="${habi.portReceptionSecours}"></td>
+	            <td th:text="${habi.role}"></td>
+	            <td th:text="${habi.permissions}"></td>
+	            <td th:text="${habi.login}"></td>
+	            <td th:text="${habi.motDePasse}"></td>
+	           
+	          
+				<td>
+                   <form th:action="@{/operation/confirmdelete(id=${habi.id}, type='habi')}" method="get">
+                      <input type="hidden" name="id" th:value="${habi.id}" />
+                      <input type="hidden" name="type" value="habi" />
+                      <button type="submit">Delete</button>
+                      </form>
+                      
+                  
+                </td>
+
+				</td>
+	        </tr>
+	    </tbody>
+	</table>
+<script src="/js/main.js"></script>
+</body>
+</html>

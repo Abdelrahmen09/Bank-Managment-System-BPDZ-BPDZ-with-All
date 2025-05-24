@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="/css/table_css.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+	<link rel="stylesheet" href="/css/modify.css" />
+    <title>bpdz</title>
+  </head>
+  <body>
+     <nav>
+      <div class="nav__header">
+        <div class="nav__logo">
+          <a href="#" class="logo">BPDZ</a>
+        </div>
+        <div class="nav__menu__btn" id="menu-btn">
+          <i class="ri-menu-line"></i>
+        </div>
+      </div>
+      <ul class="nav__links" id="nav-links">
+        <li><a href="/login">HOME</a></li>
+        <li class="dropdown">
+          <a href="#">SERVICES <i class="ri-arrow-down-s-line"></i></a>
+          <ul class="dropdown-content">
+            <li class="dropdown-item">
+              <a href="#">View Tables<i class="ri-arrow-right-s-line"></i></a>
+              <ul class="dropdown-submenu">
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/movment">Mouvment</a></li>
+                <li><a href="/compte">compte</a></li>
+                <li><a href="/dir">dir</a></li>
+                <li><a href="/fraud">fraud</a></li>
+                <li><a href="/mondat">mondat</a></li>
+                <li><a href="/pret">pret</a></li>
+                <li><a href="/habi">habilitation</a></li>
+              </ul>
+            </li>
+            <li><a href="/form">Fill Pacs</a></li>
+            <li><a href="/admin/add/add_auditor/add_audi">Add</a></li>
+            <li><a href="/admin/add/add_compte/add_prof">Add compte</a></li>
+          </ul>
+        </li>
+        <li id="last_child"><a href="/profile">PROFILE</a></li>
+      </ul>
+      <div class="nav__btns">
+        <li><a href="/profile">PROFILE</a></li>
+      </div>
+    </nav>
+
+<h2>Liste des Mouvements</h2>
+
+<div class="search-box">
+    <form th:action="@{/searchmovment}" th:object="${search}" method="POST">
+        <input type="text" name="search" placeholder="Rechercher par nom de banque..." th:value="${search}">
+        <button type="submit">Rechercher</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+         <tr>
+                <th>ID</th>
+                <th>Nature</th>
+                <th>statutMouvement</th>
+                <th>Type Message</th>
+                <th>Transmission</th>
+                <th>Infos</th>
+                
+                <th>banque Recepteur</th>
+                <th>banque Emetteur</th>
+                <th>date Traitement</th>
+                <th>date Reception</th>
+                <th>date Creation</th>
+                <th>XML</th>
+				<th>Action</th>
+            </tr>
+    </thead>
+    <tbody>
+         <tr th:each ="movment:${movment}">
+            <td th:text="${movment.id}"></td>
+            <td th:text="${movment.natureMouvement}"></td>
+            <td th:text="${movment.statutMouvement}"></td>
+            <td th:text="${movment.typeMessage}"></td>
+            <td th:text="${movment.modeTransmission}"></td>
+             <td th:text="${movment.informationsMessage}"></td>
+              <td th:text="${movment.banqueRecepteur?.getBic()}"></td>
+               <td th:text="${movment.banqueEmetteur?.getBic()}"></td>
+               <td th:text="${movment.dateTraitement}"></td>
+               <td th:text="${movment.dateReception}"></td>
+               <td th:text="${movment.dateCreation}"></td>
+               <td th:text="${movment.xmlFile}"></td>
+			   <td>
+			       <form th:action="@{/operation/confirmdelete(id=${movment.id}, type='mouvment')}" method="get">
+                      <input type="hidden" name="id" th:value="${movment.id}" />
+                      <input type="hidden" name="type" value="mouvment" />
+                      <button type="submit">Delete</button>
+                  </form>
+                  <form th:action="@{/operation/editMov}" method="get">
+                   <input type="hidden" name="id" th:value="${movment.id}" />
+                   <button type="submit">Change</button>
+                 </form>
+			   </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- i will modify in input type i add this only to see it i will send code and only copy coller don't worry ok!-->
+<div class="section__container modify-form-container">
+  <h2>Modify Data</h2>
+    <form class="form-griddd" th:action="@{/operation/updateMov}" th:object="${MovToEdit}" method="post">
+	
+	 <div class="form-grouppp">
+            <label>ID</label>
+           <input type="text" th:value="*{id}"  name="id"  />
+        </div>
+      <div class="form-grouppp">
+          <label for="statutMouvement">Statut Mouvement:</label>
+    <select id="statutMouvement" th:field="*{statutMouvement}">
+        <option value="99">99</option>
+        <option value="00">00</option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="90">90</option>
+        <option value="91">91</option>
+        <option value="92">92</option>
+        <option value="93">93</option>
+        <option value="94">94</option>
+        <option value="95">95</option>
+        <option value="96">96</option>
+        <option value="97">97</option>
+        <option value="98">98</option>
+    </select>
+    
+     
+      
+	  
+      <div class="form-actionsss">
+          <button type="button">Cancel</button>
+          <button type="submit">Save Changes</button>
+      </div>
+  </form>
+</div>
+<script src="/js/main.js"></script>
+</body>
+</html>

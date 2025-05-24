@@ -1,0 +1,84 @@
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+h2 {
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.bank-info p {
+    font-size: 1.1em;
+    margin: 5px 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+th, td {
+    border: none;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    color: #333;
+}
+
+tr {
+    border-bottom: 1px solid #eee;
+}
+
+
+.account-table {
+	background-color: #fff;
+    margin-top: 25px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.bank-info {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+}
+
+.bank-info p {
+    color: #555;
+    font-size: 1em;
+}
+
+.logout__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.bnt_logout{
+    width: 10%;
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+}
