@@ -42,6 +42,10 @@ public class ControllerHabi {
 		super();
 		this.seviceHabi = seviceHabi;
 	}
+    @GetMapping("/")
+    public String home() {
+        return "App running.";
+    }
 	// for page of login without permission
 	@GetMapping("/sigin")
 	public String sigin(HttpSession session) {
